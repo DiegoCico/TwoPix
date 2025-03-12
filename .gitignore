@@ -22,6 +22,10 @@ DerivedData
 *.xcuserstate
 **/.xcode.env.local
 
+./firebase.tsx
+./firebase
+firebase
+
 # Android/IntelliJ
 #
 build/
@@ -73,3 +77,4 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+firebase.tsx
