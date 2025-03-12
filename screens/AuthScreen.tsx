@@ -9,10 +9,10 @@ import {
   Animated,
   Alert,
 } from 'react-native';
-import auth from '@react-native-firebase/auth';
+import { auth } from '../firebase';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from './App';
+import { RootStackParamList } from '../App';
 
 type AuthScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Auth'>;
 
