@@ -9,7 +9,7 @@ import {
   Animated,
   Alert,
 } from 'react-native';
-import { auth } from '../firebase';
+import auth from '@react-native-firebase/auth'; // using the namespaced API
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
@@ -36,7 +36,9 @@ const AnimatedCircle: React.FC<{ style?: object }> = ({ style }) => {
     ).start();
   }, [scaleAnim]);
   
-  return <Animated.View style={[styles.circle, { transform: [{ scale: scaleAnim }] }, style]} />;
+  return (
+    <Animated.View style={[styles.circle, { transform: [{ scale: scaleAnim }] }, style]} />
+  );
 };
 
 const AuthScreen: React.FC = () => {
@@ -48,7 +50,7 @@ const AuthScreen: React.FC = () => {
   const logoOpacity = useRef(new Animated.Value(0)).current;
   const formTranslateY = useRef(new Animated.Value(50)).current;
   const flashAnim = useRef(new Animated.Value(0)).current;
-
+  
   useEffect(() => {
     Animated.parallel([
       Animated.timing(logoOpacity, {
@@ -63,7 +65,7 @@ const AuthScreen: React.FC = () => {
       }),
     ]).start();
   }, [logoOpacity, formTranslateY]);
-
+  
   // Trigger a flash animation (simulates camera flash)
   const triggerFlash = () => {
     flashAnim.setValue(1);
@@ -79,7 +81,7 @@ const AuthScreen: React.FC = () => {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User signed in!');
-        // Navigate to your main app screen if desired.
+        // Navigate or do something on successful login
       })
       .catch(error => {
         console.error('Login error:', error);
@@ -92,7 +94,7 @@ const AuthScreen: React.FC = () => {
       {/* Fun animated circles in the background */}
       <AnimatedCircle style={styles.circleOne} />
       <AnimatedCircle style={styles.circleTwo} />
-      
+
       <Animated.View style={[styles.logoContainer, { opacity: logoOpacity }]}>
         <Text style={styles.logo}>TwoPix</Text>
       </Animated.View>
@@ -146,9 +148,9 @@ const styles = StyleSheet.create({
   },
   logo: {
     fontSize: 48,
-    color: '#FF69B4', // Hot pink for a playful vibe
+    color: '#FF69B4',
     fontWeight: 'bold',
-    fontFamily: 'PressStart2P', // Ensure this pixelated font is linked
+    fontFamily: 'PressStart2P',
     letterSpacing: 2,
     textShadowColor: '#FF0000',
     textShadowOffset: { width: 2, height: 2 },
